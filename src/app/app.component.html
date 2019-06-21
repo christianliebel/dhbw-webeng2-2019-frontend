@@ -1,5 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
+<ul>
+  <li *ngFor="let todo of todos">{{ todo.name }}</li>
+</ul>
+
+<button (click)="toggle()">Toggle</button>
+<ng-container *ngIf="show">
+  I’m visible!
+</ng-container>
+
 <app-todo appClickLogger [todo]="myTodo" (done)="onDone($event)"></app-todo>
 <app-todo appClickLogger appTest="hotpink" [todo]="myTodo2"></app-todo>
 

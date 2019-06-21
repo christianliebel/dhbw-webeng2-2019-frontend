@@ -1,5 +1,6 @@
 import { Component, ElementRef, Inject } from '@angular/core';
 import { APP_NAME } from './appName';
+import { Todo } from './todo';
 import { TodoService } from './todo.service';
 
 @Component({
@@ -14,12 +15,14 @@ export class AppComponent {
   pi = 3.14159265;
   myTodo = { name: 'Wäsche waschen', id: 5, done: false };
   myTodo2 = { name: 'Teller waschen', id: 6, done: false };
+  show: boolean;
+  todos: Todo[];
 
   constructor(
       @Inject(APP_NAME) name: string,
       todo: TodoService
     ) {
-    console.log(todo.getAll());
+    this.todos = todo.getAll();
   }
 
   onClick({ clientX, clientY }: MouseEvent) {
@@ -35,5 +38,9 @@ export class AppComponent {
 
   onDone(event: any) {
     console.log(event);
+  }
+
+  toggle() {
+    this.show = !this.show;
   }
 }
