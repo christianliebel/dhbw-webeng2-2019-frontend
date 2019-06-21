@@ -1,5 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { APP_NAME } from './appName';
 import { Todo } from './todo';
 import { TodoService } from './todo.service';
@@ -17,21 +18,13 @@ export class AppComponent implements OnInit, OnDestroy {
   myTodo = {name: 'Wäsche waschen', id: 5, done: false};
   myTodo2 = {name: 'Teller waschen', id: 6, done: false};
   show: boolean;
-  todos: Todo[];
-  private subscription: Subscription;
+  todos$: Observable<Todo[]>;
 
   constructor(
     @Inject(APP_NAME) name: string,
     public todo: TodoService
   ) {
-  }
-
-  ngOnInit(): void {
-    this.subscription = this.todo.getAll().subscribe(todos => this.todos = todos);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.todos$ = todo.getAll();
   }
 
   onClick({clientX, clientY}: MouseEvent) {
@@ -54,6 +47,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.todo.create(new Todo(this.title)).subscribe();
+    this.todos$ = this.todo.create(new Todo(this.title)).pipe(
+      switchMap(() => this.todo.getAll())
+    );
   }
 }
