@@ -1,5 +1,6 @@
 import { Component, ElementRef, Inject } from '@angular/core';
 import { APP_NAME } from './appName';
+import { TodoService } from './todo.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,11 @@ export class AppComponent {
   myTodo = { name: 'Wäsche waschen', id: 5, done: false };
   myTodo2 = { name: 'Teller waschen', id: 6, done: false };
 
-  constructor(@Inject(APP_NAME) name: string) {
-    console.log(name);
+  constructor(
+      @Inject(APP_NAME) name: string,
+      todo: TodoService
+    ) {
+    console.log(todo.getAll());
   }
 
   onClick({ clientX, clientY }: MouseEvent) {
