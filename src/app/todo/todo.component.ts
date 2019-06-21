@@ -23,12 +23,4 @@ export class TodoComponent implements OnInit {
   onClick() {
     this.done.emit(this.todo);
   }
-
-  @HostBinding('class.foo')
-  doneState = false;
-
-  @HostListener('click')
-  onTodoClick() {
-    this.doneState = !this.doneState;
-  }
 }

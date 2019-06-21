@@ -1,2 +1,4 @@
-<button (click)="onClick()">Fertig</button>
-{{ todo | json }}
+<label>
+  <input type="checkbox" [checked]="todo.done">
+  {{ todo.name }}
+</label>
