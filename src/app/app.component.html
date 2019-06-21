@@ -1,1 +1,6 @@
 <app-todo *ngFor="let todo of todos" [todo]="todo"></app-todo>
+
+<form (ngSubmit)="onSubmit()">
+  <input type="text" name="title" [(ngModel)]="title">
+  <button>Hinzufügen</button>
+</form>

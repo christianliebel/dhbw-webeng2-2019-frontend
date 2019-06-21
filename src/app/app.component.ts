@@ -10,7 +10,7 @@ import { TodoService } from './todo.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'todoFoo';
+  title = 'Neues Todo';
   value = 'Hello!';
   color = 'hotpink';
   pi = 3.14159265;
@@ -51,5 +51,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   toggle() {
     this.show = !this.show;
+  }
+
+  onSubmit(): void {
+    this.todo.create(new Todo(this.title)).subscribe();
   }
 }
